@@ -2,23 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using static QuestionManager;
 
-public class UiManager : MonoBehaviour
+public class Localizer : MonoBehaviour
 {
     private bool localeActive;
     public int currentLocaleId;
-    public int difficultyId;
-
-    public void Difficulty(int _difficultyId)
-    {
-        difficultyId = _difficultyId;
-    }
-
-    public void OnSubmit()
-    {
-        
-    }
-
 
     //Method to change locale
     public void ChangeLocale(int localeId)
@@ -33,17 +22,10 @@ public class UiManager : MonoBehaviour
         localeActive = true;
         yield return LocalizationSettings.InitializationOperation;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_localeId];
+        Instance.prompt.localeId = _localeId;
         currentLocaleId = _localeId;
         localeActive = false;
     }
-    void Start()
-    {
-        
-    }
 
     
-    void Update()
-    {
-        
-    }
 }

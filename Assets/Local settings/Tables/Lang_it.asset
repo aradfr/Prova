@@ -46,6 +46,10 @@ MonoBehaviour:
     m_Localized: Complimenti
     m_Metadata:
       m_Items: []
+  - m_Id: 686758457995264
+    m_Localized: Prossima
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

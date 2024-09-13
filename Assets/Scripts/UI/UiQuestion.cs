@@ -1,37 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UiQuestion : UIBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public Question[] questions = new Question[10];
+    protected override void BeforeActivation()
     {
         
     }
 
-    // Update is called once per frame
-    protected override void BeforeActivate()
+    protected override void AfterActivation()
     {
         
     }
 
-    protected override void AfterActivate()
+    protected override void BeforeDeactivation()
     {
         
     }
 
-    protected override void BeforeLeave()
-    {
-        
-    }
-
-    protected override void AfterLeave()
-    {
-        
-    }
-
-    void Update()
+    protected override void AfterDeactivation()
     {
         
     }

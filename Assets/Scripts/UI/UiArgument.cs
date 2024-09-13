@@ -1,38 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UiArgument : UIBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public TMP_InputField input;
+    [SerializeField] private UI.UIState state;
+    protected override void BeforeActivation()
     {
         
     }
 
-    // Update is called once per frame
-    protected override void BeforeActivate()
+    protected override void AfterActivation()
+    {
+        //TODO:Animation
+    }
+
+    protected override void BeforeDeactivation()
     {
         
     }
 
-    protected override void AfterActivate()
+    protected override void AfterDeactivation()
     {
         
     }
 
-    protected override void BeforeLeave()
+    public void OnSubmit()
     {
-        
+        SendArgToQuestion();
+        UI.Instance.NextState(state);
     }
 
-    protected override void AfterLeave()
+    public void SendArgToQuestion()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        //TODO : decouple prompt and question
+        QuestionManager.Instance.prompt.argument = input.text;
     }
 }

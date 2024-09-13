@@ -20,70 +20,76 @@ public class UI : MonoBehaviour {
 
     
     public enum UIState {
-     //TODO: add panel types
+     LangNDiff,
+     Argument,
+     Question,
+     End,
     }
 
     public UIBase[] pages;
     public UIState startingState,currentState,prevState;
-    
-    
+
     HashSet<UIState> pagesVisited = new HashSet<UIState> ();
     
     
-    public Action<UIState, UIState> OnPageChanged;
+    //public Action<UIState, UIState> OnPageChanged;
 
-    private void Start () {
-        Instance.OnPageChanged += OnPageChangedCallback;
+    private void Start() {
+        //Instance.OnPageChanged += OnPageChangedCallback;
 
-        SetState (startingState);
+        
 
         prevState = currentState = startingState;
 
     }
-    
 
-    public void OnBackClick () {
+    
+    public void OnBackClick() {
         GoBack ();
     }
 
-    public static void GoBack () {
+    public static void GoBack() {
         if (Instance.pagesVisited.Count > 0) {
             
             
         }
     }
 
-    private void OnDisable () {
-        Instance.OnPageChanged -= OnPageChangedCallback;
+    private void OnDisable() {
+        //Instance.OnPageChanged -= OnPageChangedCallback;
     } 
     
     
 
-    public static void SetState (UIState state, bool isBack = false, bool dirBack = false) {
-        UIBase.Direction dir = (isBack || dirBack) ? UIBase.Direction.RightToLeft : UIBase.Direction.LeftToRight;
+    public void NextState(UIState state) {
 
-        if (!isBack) {
-            //TODO : possibly remove duplicate states
-            
-            
-            Instance.pagesVisited.Add (Instance.currentState);
-            Debug.Log ("new Page added "+state);
-        }
+       
         Instance.prevState = Instance.currentState;
-        Instance.pages[(int) Instance.currentState].GoOut (dir);
-        Instance.currentState = state;
-        Instance.pages[(int) Instance.currentState].ComeIn (dir);
-
-        if (Instance.OnPageChanged != null)
-            Instance.OnPageChanged (Instance.prevState, Instance.currentState);
+        Instance.pages[(int) Instance.currentState].StateDeactive();
+        Instance.currentState = NextEnum(state) ;
+        Instance.pages[(int) Instance.currentState].StateActive();
+        // if (Instance.OnPageChanged != null)
+        //     Instance.OnPageChanged?.Invoke(Instance.prevState, Instance.currentState);
     }
-
     
-    private void OnPageChangedCallback (UI.UIState prevPage, UI.UIState currentPage) {
+    public UIState NextEnum(UIState state)
+    {
+        switch (state)
+        {
+            case UIState.LangNDiff:
+                return UIState.Argument;
+            case UIState.Argument:
+                return UIState.Question;
+            case UIState.Question:
+                return UIState.End;
+            case UIState.End:
+                return UIState.LangNDiff;
+            default:
+                return UIState.LangNDiff;
+
+        }
         
-
     }
-
     
 
     

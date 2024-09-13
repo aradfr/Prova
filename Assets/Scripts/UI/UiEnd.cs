@@ -11,22 +11,22 @@ public class UiEnd : UIBase
     }
 
     // Update is called once per frame
-    protected override void BeforeActivate()
+    protected override void BeforeActivation()
     {
         
     }
 
-    protected override void AfterActivate()
+    protected override void AfterActivation()
     {
         
     }
 
-    protected override void BeforeLeave()
+    protected override void BeforeDeactivation()
     {
         
     }
 
-    protected override void AfterLeave()
+    protected override void AfterDeactivation()
     {
         
     }
