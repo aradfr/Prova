@@ -1,11 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft;
 
 public class ServerHandler : MonoBehaviour
 {
-    //TODO : Json will be sent here and this will send it to
-    //server and will have another json as response and this will send it to QuestionManager
+
+    [SerializeField] private ServerMocker server;
+    
+    public Question[] response;
     
     
+
+    public void JsonSerilizer(Prompt prompt)
+    {
+        //TODO :serialize the prompt to Json
+    }
+
+    //TODO : Add Json to paramethers of the following method
+    // public Question[] JsonDeserilizer()
+    // {
+    //     //desrilize JSON and fill the following variables and use the constructor to make a question with it
+    //     String questionTxt = new string(""), missingWord = new string("");
+    //     String[] wrongWords = new string[];
+    //     
+    //     
+    //     
+    // }
+
 }

@@ -7,15 +7,24 @@ using UnityEngine.Serialization;
 
 public class Question : MonoBehaviour
 {
-    public String question,missingWord;
-    public String[] wrongWords = new string[2];
 
-    void Start()
+
+
+    public String questionTxt;
+    public String missingWord;
+    public String[] wrongWords ;
+    
+
+    public Question(String questionTxt, String missingWord, String[] wrongWords)
     {
-       
-    }
+        this.questionTxt = questionTxt;
+        this.missingWord = missingWord;
+        this.wrongWords = wrongWords;
 
-    // Update is called once per frame
+    }
+    
+    
+
     void Update()
     {
         

@@ -9,9 +9,11 @@ public class UiLangNDiff : UIBase
 {
 
     private Difficulty _currentDifficulty;
-    [SerializeField] public Button[] difficultyButtons = new Button[4];
     
+    [SerializeField] public Button[] difficultyButtons = new Button[4];
     [SerializeField] public UI.UIState state;
+    
+    
     public enum Difficulty
     {
         Maternal,
@@ -56,8 +58,8 @@ public class UiLangNDiff : UIBase
 
     public void OnSelectDifficulty(int _difficulty)
     {
-        SelectButton(_difficulty);
-        DeSelectOthersThan(_difficulty);
+        // SelectButton(_difficulty);
+        // DeSelectOthersThan(_difficulty);
         QuestionManager.Instance.prompt.difficulty = (Difficulty) _difficulty;
         
     }
