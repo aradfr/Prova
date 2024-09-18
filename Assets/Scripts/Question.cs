@@ -14,4 +14,19 @@ public class Question
     public String missingWord;
     public String[] wrongWords ;
     
+
+    public Question(String questionTxt, String missingWord, String[] wrongWords)
+    {
+        this.questionTxt = questionTxt;
+        this.missingWord = missingWord;
+        this.wrongWords = wrongWords;
+
+    }
+    
+    
+
+    void Update()
+    {
+        
+    }
 }

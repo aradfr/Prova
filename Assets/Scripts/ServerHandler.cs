@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Policy;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,13 +15,13 @@ public class ServerHandler : MonoBehaviour
 
     private String promptJSON;
 
-    #region JSONS
+    #region JSONS&Qs
     
         public static readonly String jsonResponseEnglish = @"
         [
-            {""question"": ""It's important to arrive to the school in designated hours"",""missingWord"": ""arrive"",""wrongWords"": [""write"", ""visit""]},
-            {""question"": ""The sun sets in the west"",""missingWord"": ""sets"",""wrongWords"": [""rides"", ""cooks""]},
-            {""question"": ""It's important to drink plenty of water"",""missingWord"": ""drink"",""wrongWords"": [""eat"", ""run""]},
+            {""questionTxt"": ""It's important to arrive to the school in designated hours"",""missingWord"": ""arrive"",""wrongWords"": [""write"", ""visit""]},
+            {""questionTxt"": ""The sun sets in the west"",""missingWord"": ""sets"",""wrongWords"": [""rides"", ""cooks""]},
+            {""questionTxt"": ""It's important to drink plenty of water"",""missingWord"": ""drink"",""wrongWords"": [""eat"", ""run""]},
         ]";
         public static readonly String jsonResponseItalian = @"
         [
@@ -28,6 +29,26 @@ public class ServerHandler : MonoBehaviour
             {""questionTxt"": ""Il sole tramonta a ovest"",""missingWord"": ""tramonta"",""wrongWords"": [""splende"", ""riscalda""]}
             {""questionTxt"": ""È fondamentale bere molta acqua"",""missingWord"": ""bere"",""wrongWords"": [""camminare"", ""studiare""]}
         ]";
+
+        // public Question englishQ1 = new Question("It's important to arrive to the school in designated hours", "arrive",
+        //     new String[] { "write", "visit" });
+        
+        public Question englishQ2 = new Question("The sun sets in the west", "sets",
+            new String[] { "rides", "cooks" });
+        
+        public Question englishQ3 = new Question("It's important to drink plenty of water", "drink",
+            new String[] { "eat", "run" });
+        
+        
+        public Question italianQ1 = new Question("É Importante Arrivare a scoula in orario", "arrivare",
+            new String[] { "arrivo", "arriverò" });
+        
+        public Question italianQ2 = new Question("Il sole tramonta a ovest", "tramonta",
+            new String[] { "splende", "riscalda" });
+        
+        public Question italianQ3 = new Question("È fondamentale bere molta acqua", "bere",
+            new String[] { "camminare", "studiare" });
+        
     #endregion
     
     public Question[] GetQuestionsArrayFromServer(Prompt prompt)
@@ -39,14 +60,15 @@ public class ServerHandler : MonoBehaviour
     public IEnumerator SendGetRequest(String url, String prompt)
     {
         yield return new WaitForSeconds(1);
-
+        //TODO : Remove switch and use localizer
         switch (QuestionManager.Instance.prompt.localeId)
         {
+            //TODO : Prints Q1 twice even if q1 is commented O.O ...---...
             case 0 :
-                response = JsonUtility.FromJson<Question[]>(jsonResponseEnglish);
+                response = new Question[] { englishQ2, englishQ2, englishQ3 };
                 break;
             case 1 :
-                response = JsonUtility.FromJson<Question[]>(jsonResponseItalian);
+                response = new Question[] { italianQ1, italianQ2, italianQ3 };
                 break;
             default:
                 Debug.Log("Error in response");
@@ -75,6 +97,7 @@ public class ServerHandler : MonoBehaviour
     //     }
     //     else
     //     {
+    //      //TODO : FromJson questions returns an array
     //         response = JsonUtility.FromJson<Question[]>(request.downloadHandler.text);
     //     }
     // }

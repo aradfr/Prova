@@ -32,14 +32,13 @@ public class UiArgument : UIBase
 
     public void OnSubmit()
     {
+        QuestionManager.Instance.GetQuestions();
         UI.Instance.NextState(state);
     }
 
     public void SendArgToPrompt()
-    {
-        
+    { 
         QuestionManager.Instance.prompt.argument = input.text;
-        QuestionManager.Instance.GetQuestions();
     }
 
 }    
