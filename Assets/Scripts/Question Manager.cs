@@ -19,7 +19,6 @@ public class QuestionManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-        questionsArray = new Question[questionsNumbers];
         prompt = new Prompt();
     }
 
@@ -29,9 +28,7 @@ public class QuestionManager : MonoBehaviour
     }
 
     #endregion
-
-    //Initialized in awake()
-    [SerializeField] private int questionsNumbers;
+    
 
     [SerializeField] private ServerHandler serverHandler;
     [SerializeField] private ServerMocker serverMocker;
@@ -41,7 +38,7 @@ public class QuestionManager : MonoBehaviour
     public Question currentQuestion;
     public String[] currentQuestionTxtArray;
     public Prompt prompt;
-    public int index;
+    public static int index =0;
     
     public void NextQuestion()
     {
@@ -51,17 +48,10 @@ public class QuestionManager : MonoBehaviour
         currentQuestionTxtArray = currentQuestion.questionTxt.Split(currentQuestion.missingWord);
     }
 
-    public void GetQuestionsFromServerHandler(Prompt prompt)
+
+    public void GetQuestions()
     {
-        if (isMocking)
-        {
-            questionsArray = serverMocker.GetQuestionArray(prompt);
-        }
-        else
-        {
-            //questionsArray = serverHandler.GetQuestionsArray(prompt);
-            
-        }
+        questionsArray = serverHandler.GetQuestionsArrayFromServer(prompt);
     }
     
 }

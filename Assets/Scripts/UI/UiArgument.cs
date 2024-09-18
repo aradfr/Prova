@@ -39,6 +39,7 @@ public class UiArgument : UIBase
     {
         
         QuestionManager.Instance.prompt.argument = input.text;
+        QuestionManager.Instance.GetQuestions();
     }
 
 }    

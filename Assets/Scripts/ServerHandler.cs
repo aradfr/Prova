@@ -1,53 +1,85 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ServerHandler : MonoBehaviour
 {
-
-    [SerializeField] private ServerMocker server;
+    
+    [SerializeField] private String url; 
     
     public Question[] response;
 
     private String promptJSON;
 
-
-    // public Question[] GetQuestionsArray(Prompt prompt)
-    // {
-    //     promptJSON = JsonUtility.ToJson(prompt);
-    //     // return GetQuestionsArrayFromServer(promptJSON);
-    // }
-
-    //TODO : Add Json to paramethers of the following method
-    // public Question[] GetQuestionsArrayFromServer(String stringJSON)
-    // {
-    //     
-    //
-    //
-    //     
-    //
-    // }
+    #region JSONS
     
-    IEnumerator SendGetRequest(string url, string prompt)
+        public static readonly String jsonResponseEnglish = @"
+        [
+            {""question"": ""It's important to arrive to the school in designated hours"",""missingWord"": ""arrive"",""wrongWords"": [""write"", ""visit""]},
+            {""question"": ""The sun sets in the west"",""missingWord"": ""sets"",""wrongWords"": [""rides"", ""cooks""]},
+            {""question"": ""It's important to drink plenty of water"",""missingWord"": ""drink"",""wrongWords"": [""eat"", ""run""]},
+        ]";
+        public static readonly String jsonResponseItalian = @"
+        [
+            {""questionTxt"": ""É Importante Arrivare a scoula in orario"", ""missingWord"": ""arrivare"",""wrongWords"": [""arrivo"", ""arriverò""] },
+            {""questionTxt"": ""Il sole tramonta a ovest"",""missingWord"": ""tramonta"",""wrongWords"": [""splende"", ""riscalda""]}
+            {""questionTxt"": ""È fondamentale bere molta acqua"",""missingWord"": ""bere"",""wrongWords"": [""camminare"", ""studiare""]}
+        ]";
+    #endregion
+    
+    public Question[] GetQuestionsArrayFromServer(Prompt prompt)
     {
-        string encodedPrompt = UnityWebRequest.EscapeURL(prompt);
-        string finalUrl = url + "?prompt=" + encodedPrompt;
+        String stringJSON = JsonUtility.ToJson(prompt);
+        StartCoroutine(SendGetRequest(url,stringJSON));
+        return response;
+    }
+    public IEnumerator SendGetRequest(String url, String prompt)
+    {
+        yield return new WaitForSeconds(1);
 
-        UnityWebRequest request = UnityWebRequest.Get(finalUrl);
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.ConnectionError || 
-            request.result == UnityWebRequest.Result.ProtocolError)
+        switch (QuestionManager.Instance.prompt.localeId)
         {
-            Debug.LogError(request.error);
+            case 0 :
+                response = JsonUtility.FromJson<Question[]>(jsonResponseEnglish);
+                break;
+            case 1 :
+                response = JsonUtility.FromJson<Question[]>(jsonResponseItalian);
+                break;
+            default:
+                Debug.Log("Error in response");
+                break;
+            
         }
-        else
+        
+        foreach (Question q in response)
         {
-            // response = JsonUtility.FromJson(request.result);}
+                Debug.Log(q.questionTxt + ": " + q.missingWord);
         }
     }
+    
+    // IEnumerator SendGetRequest(String url, String prompt)
+    // {
+    //     String encodedPrompt = UnityWebRequest.EscapeURL(prompt);
+    //     String finalUrl = url + "?prompt=" + encodedPrompt;
+    //
+    //     UnityWebRequest request = UnityWebRequest.Get(finalUrl);
+    //     yield return request.SendWebRequest();
+    //
+    //     if (request.result == UnityWebRequest.Result.ConnectionError || 
+    //         request.result == UnityWebRequest.Result.ProtocolError)
+    //     {
+    //         Debug.LogError(request.error);
+    //     }
+    //     else
+    //     {
+    //         response = JsonUtility.FromJson<Question[]>(request.downloadHandler.text);
+    //     }
+    // }
+    
+
 
 
 
