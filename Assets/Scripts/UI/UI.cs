@@ -74,6 +74,7 @@ public class UI : MonoBehaviour {
     
     public UIState NextEnum(UIState state)
     {
+        //TODO : Implement a better way for this
         switch (state)
         {
             case UIState.LangNDiff:

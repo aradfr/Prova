@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ServerMocker : MonoBehaviour
 {
+    public List<Question> mockList;
+
+    [SerializeField]private int mockIndex;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +17,10 @@ public class ServerMocker : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public Question[] GetQuestionArray(Prompt prompt)
+    {
+        return mockList.ToArray();
     }
 }

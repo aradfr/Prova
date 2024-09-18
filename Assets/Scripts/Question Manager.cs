@@ -34,7 +34,9 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private int questionsNumbers;
 
     [SerializeField] private ServerHandler serverHandler;
-
+    [SerializeField] private ServerMocker serverMocker;
+    [SerializeField] private bool isMocking;
+    
     public Question[] questionsArray ;
     public Question currentQuestion;
     public String[] currentQuestionTxtArray;
@@ -51,7 +53,15 @@ public class QuestionManager : MonoBehaviour
 
     public void GetQuestionsFromServerHandler(Prompt prompt)
     {
-        // questionArray = serverHandler.GetQuestion(prompt);
+        if (isMocking)
+        {
+            questionsArray = serverMocker.GetQuestionArray(prompt);
+        }
+        else
+        {
+            //questionsArray = serverHandler.GetQuestionsArray(prompt);
+            
+        }
     }
     
 }

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using Newtonsoft;
 using UnityEngine;
 using UnityEngine.Serialization;
-
-public class Question : MonoBehaviour
+[Serializable]
+public class Question
 {
 
 
