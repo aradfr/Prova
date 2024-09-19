@@ -55,6 +55,8 @@ public class QuestionManager : MonoBehaviour
     public void GetQuestions()
     {
         questionsArray = serverHandler.GetQuestionsArrayFromServer(prompt);
+        
+        
     }
     
 
