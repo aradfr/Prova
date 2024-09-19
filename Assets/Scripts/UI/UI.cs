@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UI : MonoBehaviour {
     #region Singleton
@@ -26,21 +27,23 @@ public class UI : MonoBehaviour {
      End,
     }
 
-    public UIBase[] pages;
+    public UIBase[] pages,pagesBlue,pagesNude;
     public UIState startingState,currentState,prevState;
 
     HashSet<UIState> pagesVisited = new HashSet<UIState> ();
     
     
-    //public Action<UIState, UIState> OnPageChanged;
 
     private void Start() {
-        //Instance.OnPageChanged += OnPageChangedCallback;
-
-        
 
         prevState = currentState = startingState;
 
+    }
+
+    public void SetPages()
+    {
+        if ((int)QuestionManager.Instance.prompt.difficulty > 1) pages = pagesBlue;
+        else pages = pagesNude;
     }
 
     
@@ -74,7 +77,7 @@ public class UI : MonoBehaviour {
     
     public UIState NextEnum(UIState state)
     {
-        //TODO : Implement a better way for this
+        //TODO : Implement a better way for this (maybe passing the direction or the target scene instead of a enum approach)
         switch (state)
         {
             case UIState.LangNDiff:

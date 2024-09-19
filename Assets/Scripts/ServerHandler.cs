@@ -30,42 +30,36 @@ public class ServerHandler : MonoBehaviour
             {""questionTxt"": ""È fondamentale bere molta acqua"",""missingWord"": ""bere"",""wrongWords"": [""camminare"", ""studiare""]}
         ]";
 
-        // public Question englishQ1 = new Question("It's important to arrive to the school in designated hours", "arrive",
-        //     new String[] { "write", "visit" });
+        public Question englishQ1 = new Question("It's important to arrive to the school in designated hours", "arrive",
+            new String[] { "arrive","write", "visit" });
         
         public Question englishQ2 = new Question("The sun sets in the west", "sets",
-            new String[] { "rides", "cooks" });
+            new String[] { "sets","rides", "cooks" });
         
         public Question englishQ3 = new Question("It's important to drink plenty of water", "drink",
-            new String[] { "eat", "run" });
+            new String[] { "drink","eat", "run" });
         
         
         public Question italianQ1 = new Question("É Importante Arrivare a scoula in orario", "arrivare",
-            new String[] { "arrivo", "arriverò" });
+            new String[] { "arrivare","arrivo", "arriverò" });
         
         public Question italianQ2 = new Question("Il sole tramonta a ovest", "tramonta",
-            new String[] { "splende", "riscalda" });
+            new String[] { "tramonta","splende", "riscalda" });
         
         public Question italianQ3 = new Question("È fondamentale bere molta acqua", "bere",
-            new String[] { "camminare", "studiare" });
+            new String[] { "bere","camminare", "studiare" });
         
     #endregion
     
     public Question[] GetQuestionsArrayFromServer(Prompt prompt)
     {
-        String stringJSON = JsonUtility.ToJson(prompt);
-        StartCoroutine(SendGetRequest(url,stringJSON));
-        return response;
-    }
-    public IEnumerator SendGetRequest(String url, String prompt)
-    {
-        yield return new WaitForSeconds(1);
-        //TODO : Remove switch and use localizer
+        // String stringJSON = JsonUtility.ToJson(prompt);
+        // StartCoroutine(SendGetRequest(url,stringJSON));
         switch (QuestionManager.Instance.prompt.localeId)
         {
             //TODO : Prints Q1 twice even if q1 is commented O.O ...---...
             case 0 :
-                response = new Question[] { englishQ2, englishQ2, englishQ3 };
+                response = new Question[] { englishQ1, englishQ2, englishQ3 };
                 break;
             case 1 :
                 response = new Question[] { italianQ1, italianQ2, italianQ3 };
@@ -75,11 +69,7 @@ public class ServerHandler : MonoBehaviour
                 break;
             
         }
-        
-        foreach (Question q in response)
-        {
-                Debug.Log(q.questionTxt + ": " + q.missingWord);
-        }
+        return response;
     }
     
     // IEnumerator SendGetRequest(String url, String prompt)

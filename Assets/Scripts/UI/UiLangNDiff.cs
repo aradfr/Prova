@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,7 +14,9 @@ public class UiLangNDiff : UIBase
     
     [SerializeField] public Button[] difficultyButtons = new Button[4];
     [SerializeField] public UI.UIState state;
-    
+
+
+    private bool isSet;
     
     public enum Difficulty
     {
@@ -29,6 +33,7 @@ public class UiLangNDiff : UIBase
     
     protected override void BeforeActivation()
     {
+        isSet = false;
 
     }
 
@@ -51,6 +56,13 @@ public class UiLangNDiff : UIBase
     }
     public void OnClickSubmit()
     {
+
+        if (isSet !=true)
+        {
+            Debug.Log("set difficulty");
+        }
+
+        UI.Instance.SetPages();
         UI.Instance.NextState(state);
     }
 
@@ -61,7 +73,8 @@ public class UiLangNDiff : UIBase
         // SelectButton(_difficulty);
         // DeSelectOthersThan(_difficulty);
         QuestionManager.Instance.prompt.difficulty = (Difficulty) _difficulty;
-        
+        isSet = true;
+
     }
 
     private void DeSelectOthersThan(int difficulty)

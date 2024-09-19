@@ -32,7 +32,7 @@ public class QuestionManager : MonoBehaviour
     
 
     [SerializeField] private ServerHandler serverHandler;
-    [SerializeField] private RectTransform dropablePosition;
+    [SerializeField] private RectTransform dropableRectTransform;
 
     public Question[] questionsArray ;
     public Question currentQuestion;
@@ -40,7 +40,7 @@ public class QuestionManager : MonoBehaviour
     public Prompt prompt;
 
     public int score = 0;
-    public static int index =0;
+    public static int index = -1 ;
     
     public void NextQuestion()
     {
@@ -56,39 +56,18 @@ public class QuestionManager : MonoBehaviour
     {
         questionsArray = serverHandler.GetQuestionsArrayFromServer(prompt);
     }
-
-    public void HanldeDragablePosition(GameObject dragable,RectTransform orgPos)
-    {
-        RectTransform dragableRect = dragable.GetComponent<RectTransform>();
-        if (RectTransformUtility.RectangleContainsScreenPoint(dropablePosition, dragableRect.anchoredPosition, null))
-        {
-            CheckCorrectAnswer(dragable);  
-        }
-        else
-        {
-            dragableRect.anchoredPosition = orgPos.anchoredPosition;
-        }
-    }
+    
 
     public void CheckCorrectAnswer(GameObject dragable)
     {
-        TextMeshProUGUI choosedOption = dragable.GetComponent<TextMeshProUGUI>();
-        if (choosedOption.text == currentQuestion.missingWord)
-        {
-            dragable.GetComponent<Dragable>().Correct();
-        }
-        else if (choosedOption.text != currentQuestion.missingWord)
-        {
-            dragable.GetComponent<Dragable>().Wrong();
-        }
-        else
-        {
-            Debug.Log("TMP has problems");
-        }
-        // why this does not work?? 
-        // dragable.GetComponent<TextMeshProUGUI>().text == currentQuestion.missingWord
-        //     ? dragable.GetComponent<Dragable>().Correct()
-        //     : dragable.GetComponent<Dragable>().Wrong();
+        
+        TextMeshProUGUI choosedOption = dragable.GetComponentInChildren<TextMeshProUGUI>();
+        
+        if (choosedOption.text == currentQuestion.missingWord) dragable.GetComponent<Dragable>().Correct();
+        else if (choosedOption.text != currentQuestion.missingWord) dragable.GetComponent<Dragable>().Wrong();
+        else Debug.Log("TMP error");
+        
+      
 
     }
 }

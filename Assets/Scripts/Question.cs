@@ -12,14 +12,14 @@ public class Question
 
     public String questionTxt;
     public String missingWord;
-    public String[] wrongWords ;
+    public String[] options ;
     
 
-    public Question(String questionTxt, String missingWord, String[] wrongWords)
+    public Question(String questionTxt, String missingWord, String[] options)
     {
         this.questionTxt = questionTxt;
         this.missingWord = missingWord;
-        this.wrongWords = wrongWords;
+        this.options = options;
 
     }
     

@@ -3,16 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UiQuestion : UIBase
 {
-    [SerializeField] public GameObject missingWord,before,after;
-    [SerializeField] public GameObject optionsSlot;
-    [SerializeField] public GameObject optionPrefab;
-    
-    
-
+    [SerializeField] private GameObject before,after;
+    [SerializeField] private GameObject[] options;
 
     protected override void BeforeActivation()
     {
@@ -22,7 +19,7 @@ public class UiQuestion : UIBase
 
     protected override void AfterActivation()
     {
-        
+        NextQuestion();
     }
 
     protected override void BeforeDeactivation()
@@ -37,18 +34,24 @@ public class UiQuestion : UIBase
 
     public void OnClickNext()
     {
+        NextQuestion();
+    }
+
+    public void NextQuestion()
+    {
         QuestionManager.Instance.NextQuestion();
         before.GetComponent<TextMeshProUGUI>().text = QuestionManager.Instance.currentQuestionTxtArray[0];
         after.GetComponent<TextMeshProUGUI>().text = QuestionManager.Instance.currentQuestionTxtArray[1];
-        //TODO : handle options
-        // foreach (var option in QuestionManager.Instance.currentQuestion.wrongWords)
-        // {
-        //     // options.Append(option);
-        //
-        // }
-        // Instantiate(optionPrefab, optionsSlot.transform);
+
+        int upper = QuestionManager.Instance.currentQuestion.options.Length;
+        for (int i = 0; i < upper; i++)
+        {
+            options[i].GetComponentInChildren<TextMeshProUGUI>().text =
+                QuestionManager.Instance.currentQuestion.options[i];
+        }
+        
+
     }
-    
 
 
 
