@@ -39,9 +39,10 @@ public class QuestionManager : MonoBehaviour
     public String[] currentQuestionTxtArray;
     public Prompt prompt;
 
-    public int score = 0;
-    public static int index = -1 ;
     
+    public static int index = -1;
+    public int score = 0;
+
     public void NextQuestion()
     {
         //TODO : Change the index approach of iterating in questions
