@@ -47,6 +47,7 @@ public class UiQuestion : UIBase
 
     public void NextQuestion()
     {
+        
         QuestionManager.Instance.NextQuestion();
         before.GetComponent<TextMeshProUGUI>().text = QuestionManager.Instance.currentQuestionTxtArray[0];
         after.GetComponent<TextMeshProUGUI>().text = QuestionManager.Instance.currentQuestionTxtArray[1];

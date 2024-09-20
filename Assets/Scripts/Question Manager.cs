@@ -32,16 +32,17 @@ public class QuestionManager : MonoBehaviour
     
 
     [SerializeField] private ServerHandler serverHandler;
-    [SerializeField] private RectTransform dropableRectTransform;
 
+    public GameObject[] optionsBlue,optionsNude,options;
     public Question[] questionsArray ;
     public Question currentQuestion;
     public String[] currentQuestionTxtArray;
-    public Prompt prompt;
+    public Prompt prompt;  
 
     
     public int score = 0;
     public int currenQuestionNumber ;
+    
 
     public void NextQuestion()
     {
@@ -52,6 +53,10 @@ public class QuestionManager : MonoBehaviour
             //maybe its better to do the next line in its panel
         currentQuestionTxtArray = currentQuestion.questionTxt.Split(currentQuestion.missingWord);
         currenQuestionNumber++;
+        foreach (var go in options)
+        {
+            go.GetComponent<Dragable>().enabled = true;
+        }
     }
 
 
@@ -72,6 +77,10 @@ public class QuestionManager : MonoBehaviour
         else if (choosedOption.text != currentQuestion.missingWord) dragable.GetComponent<Dragable>().Wrong();
         else Debug.Log("TMP error");
         
+        foreach (var go in options)
+        {
+            go.GetComponent<Dragable>().enabled = false;
+        }
       
 
     }
