@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class UiEnd : UIBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    [SerializeField] private GameObject[] stars = new GameObject[3];
+    
+    
     protected override void BeforeActivation()
     {
         
@@ -18,7 +15,8 @@ public class UiEnd : UIBase
 
     protected override void AfterActivation()
     {
-        
+        int upper = QuestionManager.Instance.score / 3;
+        StartCoroutine(SpawnStars(upper));
     }
 
     protected override void BeforeDeactivation()
@@ -31,8 +29,27 @@ public class UiEnd : UIBase
         
     }
 
-    void Update()
+    public void OnReplay()
     {
+        //TODO : Go to Question or argument
+    }
+
+    public void OnReturn()
+    {
+        //TODO : Go where this leads
+    }
+
+    
+    public IEnumerator SpawnStars(int upper)
+    {
+        yield return new WaitForSeconds(0.5f);
         
+        for (int i = 0; i < upper; i++)
+        {
+            stars[i].SetActive(true);
+
+            // TODO: animate
+
+        }
     }
 }

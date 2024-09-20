@@ -5,6 +5,7 @@ using System.Security.Policy;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 
 public class ServerHandler : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class ServerHandler : MonoBehaviour
             {""questionTxt"": ""Il sole tramonta a ovest"",""missingWord"": ""tramonta"",""wrongWords"": [""splende"", ""riscalda""]}
             {""questionTxt"": ""È fondamentale bere molta acqua"",""missingWord"": ""bere"",""wrongWords"": [""camminare"", ""studiare""]}
         ]";
-
+        // Sticky object H
         public Question englishQ1 = new Question("It's important to arrive to the school in designated hours", "arrive",
             new String[] { "arrive","write", "visit" });
         
@@ -40,7 +41,7 @@ public class ServerHandler : MonoBehaviour
             new String[] { "drink","eat", "run" });
         
         
-        public Question italianQ1 = new Question("É Importante Arrivare a scoula in orario", "arrivare",
+        public Question italianQ1 = new Question("É Importante arrivare a scoula in orario", "arrivare",
             new String[] { "arrivare","arrivo", "arriverò" });
         
         public Question italianQ2 = new Question("Il sole tramonta a ovest", "tramonta",

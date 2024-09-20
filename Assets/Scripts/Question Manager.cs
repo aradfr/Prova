@@ -40,16 +40,18 @@ public class QuestionManager : MonoBehaviour
     public Prompt prompt;
 
     
-    public static int index = -1;
     public int score = 0;
+    public int currenQuestionNumber ;
 
     public void NextQuestion()
     {
-        //TODO : Change the index approach of iterating in questions
-        index++;
-        currentQuestion = questionsArray[index];
-        //maybe its better to do the next line in its panel
+        var cycler = new ArrayCycler<Question>(questionsArray);
+        
+        currentQuestion = cycler.GetNextItem();
+        if (currentQuestion is null) Debug.Log("current Q null");
+            //maybe its better to do the next line in its panel
         currentQuestionTxtArray = currentQuestion.questionTxt.Split(currentQuestion.missingWord);
+        currenQuestionNumber++;
     }
 
 

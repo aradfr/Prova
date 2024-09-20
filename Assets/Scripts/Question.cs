@@ -23,10 +23,4 @@ public class Question
 
     }
     
-    
-
-    void Update()
-    {
-        
-    }
 }

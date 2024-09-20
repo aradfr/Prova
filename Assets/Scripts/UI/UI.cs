@@ -27,13 +27,14 @@ public class UI : MonoBehaviour {
      End,
     }
 
+    public float uiTransitionDuration;
     public UIBase[] pagesBlue,pagesNude;
     public UIState startingState,currentState,prevState;
-
+    
     HashSet<UIState> pagesVisited = new HashSet<UIState> ();
 
     private UIBase[] pages;
-
+    
     private void Start() {
 
         prevState = currentState = startingState;

@@ -75,7 +75,7 @@ public class Dragable : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IEn
 
     public void Wrong()
     {
-        QuestionManager.Instance.score--;
+        
         gameObject.GetComponent<Image>().color = Color.red;
     }
 }
