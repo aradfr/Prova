@@ -8,7 +8,7 @@ public abstract class UIBase : MonoBehaviour
 {
 
     protected RectTransform RectTransform;
-    protected Vector2 TransitionDirection = Vector2.right;
+    protected Vector2 TransitionDirection = Vector2.right ;
     
     private float _timer,_smoothStep;
     private Vector2 _initialPosition;
@@ -38,6 +38,10 @@ public abstract class UIBase : MonoBehaviour
             RectTransform = GetComponent<RectTransform>();
         }
 
+        if (UI.Instance.isBlue)
+        {
+            TransitionDirection = Vector2.left ;
+        }
         _transitionDuration = UI.Instance.uiTransitionDuration;
         _timer = 0;
         switch (nextState)
@@ -60,14 +64,13 @@ public abstract class UIBase : MonoBehaviour
     {
         BeforeActivation();
         Active();
-        Transition(TransitionState.Activating);
         
     }
 
     public void Active()
     {
         gameObject.SetActive(true);
-        AfterActivation();
+        Transition(TransitionState.Activating);
     }
     public void Deactive()
     {
@@ -82,15 +85,16 @@ public abstract class UIBase : MonoBehaviour
         {
             _timer += Time.deltaTime;
             _smoothStep = MathHelper.GetEaseFlow(_timer/_transitionDuration, MathHelper.NemoEaseMode.CubicIn);
-            print(name + ": is transitioning for "+ _transitionState+ " "+ _smoothStep);
             if (_smoothStep >= 1)
             {
                 RectTransform.anchoredPosition = _finalPosition;
-                print(name + ": done transition for "+ _transitionState);
                 switch (_transitionState)
                 {
                     case TransitionState.Deactivating:
                         Deactive();
+                        break;
+                    case TransitionState.Activating:
+                        AfterActivation();
                         break;
                     
                 }
