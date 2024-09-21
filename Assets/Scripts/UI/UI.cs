@@ -44,17 +44,17 @@ public class UI : MonoBehaviour {
 
     public void SetPages()
     {
+        QuestionManager.Instance.SetOptions();
         if ((int)QuestionManager.Instance.prompt.difficulty > 1)
         {
             isBlue = true;
             pages = pagesBlue;
-            QuestionManager.Instance.options = QuestionManager.Instance.optionsBlue;
+            
         }
         else
         {
             isBlue = false;
             pages = pagesNude;
-            QuestionManager.Instance.options = QuestionManager.Instance.optionsNude;
         }
 
     }

@@ -33,12 +33,11 @@ public class QuestionManager : MonoBehaviour
 
     [SerializeField] private ServerHandler serverHandler;
 
-    public GameObject[] optionsBlue,optionsNude,options;
+    public List<Dragable> optionsBlue,optionsNude,options;
     public Question[] questionsArray ;
     public Question currentQuestion;
     public String[] currentQuestionTxtArray;
-    public Prompt prompt;  
-
+    public Prompt prompt;
     
     public int score = 0;
     public int currenQuestionNumber ;
@@ -55,7 +54,7 @@ public class QuestionManager : MonoBehaviour
         currenQuestionNumber++;
         foreach (var go in options)
         {
-            go.GetComponent<Dragable>().enabled = true;
+            go.enabled = true;
         }
     }
 
@@ -64,8 +63,20 @@ public class QuestionManager : MonoBehaviour
     {
         questionsArray = serverHandler.GetQuestionsArrayFromServer(prompt);
     }
-    
 
+    public void SetOptions()
+    {
+        if ((int)Instance.prompt.difficulty > 1)
+        {
+            
+            options = optionsBlue;
+        }
+        else
+        {
+            
+            options = optionsNude;
+        }
+    }
     public void CheckCorrectAnswer(GameObject dragable)
     {
         

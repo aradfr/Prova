@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class UiQuestion : UIBase
 {
     [SerializeField] private GameObject before,after;
-    [SerializeField] private GameObject[] options;
+    [SerializeField] private Dragable[] options;
     [SerializeField] private TextMeshProUGUI score,currentQuestionNumber;
     [SerializeField] public UI.UIState state;
     
@@ -53,7 +53,6 @@ public class UiQuestion : UIBase
         before.GetComponent<TextMeshProUGUI>().text = QuestionManager.Instance.currentQuestionTxtArray[0];
         after.GetComponent<TextMeshProUGUI>().text = QuestionManager.Instance.currentQuestionTxtArray[1];
         
-        score.text = new string("Score :"+$"{QuestionManager.Instance.score.ToString()}");
         currentQuestionNumber.text = new string("Question #"+$"{QuestionManager.Instance.currenQuestionNumber.ToString()}");
         
        RandomizeOptionsAndSet();
@@ -69,11 +68,11 @@ public class UiQuestion : UIBase
             
             for (int i = 0; i < options.Length; i++)
             {
-                options[i].GetComponentInChildren<TextMeshProUGUI>().text = textOptions[i];
+                options[i].SetText(textOptions[i]);
+                options[i].Reset();
                 //TODO : change color to sprite
-                options[i].GetComponent<Image>().color = Color.white;
-                options[i].GetComponent<RectTransform>().anchoredPosition = 
-                    QuestionManager.Instance.options[i].GetComponent<Dragable>().originalPosition;
+                options[i]._rectTransform.anchoredPosition = 
+                    QuestionManager.Instance.options[i].originalPosition;
             }
         }
         
