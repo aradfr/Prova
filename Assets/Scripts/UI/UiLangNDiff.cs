@@ -11,9 +11,9 @@ public class UiLangNDiff : UIBase
 {
 
     [SerializeField] private UI.UIState state;
-    [SerializeField] private Button[] buttons;
+    [SerializeField] private Toggle[] toggles;
     
-    private Difficulty _currentDifficulty,_previousDifficulty;
+    private Difficulty _currentDifficulty;
     
 
     private bool isSet;
@@ -54,7 +54,8 @@ public class UiLangNDiff : UIBase
 
         if (isSet !=true)
         {
-            Debug.Log("set difficulty");
+            //TODO : Ask to set
+            return;
         }
 
         UI.Instance.SetPages();
@@ -65,12 +66,13 @@ public class UiLangNDiff : UIBase
     public void OnSelectDifficulty(int _difficulty)
     {
         QuestionManager.Instance.prompt.difficulty = (Difficulty) _difficulty;
-        isSet = true;
-        _currentDifficulty = (Difficulty) _difficulty; 
-        if (_currentDifficulty == _previousDifficulty)
+        for (int i = 0; i < toggles.Length; i++)
         {
+            if(i == _difficulty) toggles[_difficulty].animator.SetBool("isOn",true);
+            else toggles[i].animator.SetBool("isOn",false);
             
         }
         
+        isSet = true;
     }
 }

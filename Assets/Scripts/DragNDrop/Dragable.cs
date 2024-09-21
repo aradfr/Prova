@@ -11,6 +11,7 @@ public class Dragable : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IEn
     
     [SerializeField] private Canvas _canvas; 
     [SerializeField] private GameObject _dropable;
+    [SerializeField] private Sprite wrongSprite,correctSprite;
     
     public Vector2 originalPosition;
     
@@ -71,12 +72,12 @@ public class Dragable : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IEn
     public void Correct()
     {
         QuestionManager.Instance.score++;
-        gameObject.GetComponent<Image>().color = Color.green;
+        gameObject.GetComponent<Image>().sprite = correctSprite;
     }
 
     public void Wrong()
     {
-        
-        gameObject.GetComponent<Image>().color = Color.red;
+
+        gameObject.GetComponent<Image>().sprite = wrongSprite;
     }
 }

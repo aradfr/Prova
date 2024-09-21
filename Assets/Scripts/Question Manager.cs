@@ -41,7 +41,7 @@ public class QuestionManager : MonoBehaviour
 
     
     public int score = 0;
-    [Range(0,3)] public int currenQuestionNumber ;
+    public int currenQuestionNumber ;
     
 
     public void NextQuestion()
@@ -63,8 +63,6 @@ public class QuestionManager : MonoBehaviour
     public void GetQuestions()
     {
         questionsArray = serverHandler.GetQuestionsArrayFromServer(prompt);
-        
-        
     }
     
 

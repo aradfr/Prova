@@ -56,17 +56,28 @@ public class UiQuestion : UIBase
         score.text = new string("Score :"+$"{QuestionManager.Instance.score.ToString()}");
         currentQuestionNumber.text = new string("Question #"+$"{QuestionManager.Instance.currenQuestionNumber.ToString()}");
         
-        int upper = QuestionManager.Instance.currentQuestion.options.Length;
-        for (int i = 0; i < upper; i++)
-        {
-            options[i].GetComponentInChildren<TextMeshProUGUI>().text =
-                QuestionManager.Instance.currentQuestion.options[i];
-            options[i].GetComponent<Image>().color = Color.white;
-            options[i].GetComponent<RectTransform>().anchoredPosition = QuestionManager.Instance.options[i]
-                .GetComponent<Dragable>().originalPosition;
+       RandomizeOptionsAndSet();
+
+    }
+
+    private void RandomizeOptionsAndSet()
+    {{
+            string[] textOptions = QuestionManager.Instance.currentQuestion.options.ToArray();
+            
+            System.Random random = new System.Random();
+            textOptions = textOptions.OrderBy(x => random.Next()).ToArray();
+            
+            for (int i = 0; i < options.Length; i++)
+            {
+                options[i].GetComponentInChildren<TextMeshProUGUI>().text = textOptions[i];
+                //TODO : change color to sprite
+                options[i].GetComponent<Image>().color = Color.white;
+                options[i].GetComponent<RectTransform>().anchoredPosition = 
+                    QuestionManager.Instance.options[i].GetComponent<Dragable>().originalPosition;
+            }
         }
         
-
+        
     }
 
 
