@@ -27,6 +27,7 @@ public class UI : MonoBehaviour {
      End,
     }
 
+    public bool isBlue;
     public float uiTransitionDuration;
     public UIBase[] pagesBlue,pagesNude;
     public UIState startingState,currentState,prevState;
@@ -45,11 +46,13 @@ public class UI : MonoBehaviour {
     {
         if ((int)QuestionManager.Instance.prompt.difficulty > 1)
         {
+            isBlue = true;
             pages = pagesBlue;
             QuestionManager.Instance.options = QuestionManager.Instance.optionsBlue;
         }
         else
         {
+            isBlue = false;
             pages = pagesNude;
             QuestionManager.Instance.options = QuestionManager.Instance.optionsNude;
         }

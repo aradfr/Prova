@@ -10,10 +10,11 @@ using UnityEngine.UI;
 public class UiLangNDiff : UIBase
 {
 
-    private Difficulty _currentDifficulty;
+    [SerializeField] private UI.UIState state;
+    [SerializeField] private Button[] buttons;
     
-    [SerializeField] public UI.UIState state;
-
+    private Difficulty _currentDifficulty,_previousDifficulty;
+    
 
     private bool isSet;
     
@@ -65,5 +66,11 @@ public class UiLangNDiff : UIBase
     {
         QuestionManager.Instance.prompt.difficulty = (Difficulty) _difficulty;
         isSet = true;
+        _currentDifficulty = (Difficulty) _difficulty; 
+        if (_currentDifficulty == _previousDifficulty)
+        {
+            
+        }
+        
     }
 }

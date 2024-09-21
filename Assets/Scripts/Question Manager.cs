@@ -41,7 +41,7 @@ public class QuestionManager : MonoBehaviour
 
     
     public int score = 0;
-    public int currenQuestionNumber ;
+    [Range(0,3)] public int currenQuestionNumber ;
     
 
     public void NextQuestion()

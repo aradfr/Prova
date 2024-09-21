@@ -6,15 +6,17 @@ public class UiEnd : UIBase
 {
 
     [SerializeField] private GameObject[] stars = new GameObject[3];
+    [SerializeField] private UI.UIState state;
     
     
     protected override void BeforeActivation()
     {
-        
+        DeactiveStars();
     }
 
     protected override void AfterActivation()
     {
+        
         int upper = QuestionManager.Instance.score / 3;
         StartCoroutine(SpawnStars(upper));
     }
@@ -24,32 +26,39 @@ public class UiEnd : UIBase
         
     }
 
+    private void DeactiveStars()
+    {
+        foreach (var s in stars)
+        {
+            s.SetActive(false);
+        }
+    }
     protected override void AfterDeactivation()
     {
-        
+        DeactiveStars();
     }
 
     public void OnReplay()
     {
-        //TODO : Go to Question or argument
+        UI.Instance.NextState(UI.UIState.Argument);
     }
 
     public void OnReturn()
     {
-        //TODO : Go where this leads
+        
+        UI.Instance.NextState(state);
     }
 
     
     public IEnumerator SpawnStars(int upper)
     {
-        yield return new WaitForSeconds(0.5f);
         
-        for (int i = 0; i < upper; i++)
-        {
-            stars[i].SetActive(true);
 
-            // TODO: animate
-
-        }
+            for (int i = 0; i < upper; i++)
+            {
+                stars[i].SetActive(true);
+                yield return new WaitForSeconds(0.5f);
+            }
+        
     }
 }

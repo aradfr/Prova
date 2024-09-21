@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UiQuestion : UIBase
 {
@@ -60,6 +61,9 @@ public class UiQuestion : UIBase
         {
             options[i].GetComponentInChildren<TextMeshProUGUI>().text =
                 QuestionManager.Instance.currentQuestion.options[i];
+            options[i].GetComponent<Image>().color = Color.white;
+            options[i].GetComponent<RectTransform>().anchoredPosition = QuestionManager.Instance.options[i]
+                .GetComponent<Dragable>().originalPosition;
         }
         
 

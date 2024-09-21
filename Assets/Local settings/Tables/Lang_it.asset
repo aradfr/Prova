@@ -50,6 +50,14 @@ MonoBehaviour:
     m_Localized: Prossima
     m_Metadata:
       m_Items: []
+  - m_Id: 3598405765918720
+    m_Localized: Torna ai laboratori
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3599115920306176
+    m_Localized: Ripeti Laboratorio
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

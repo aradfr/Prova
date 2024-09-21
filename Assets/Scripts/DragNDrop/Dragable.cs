@@ -12,19 +12,20 @@ public class Dragable : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IEn
     [SerializeField] private Canvas _canvas; 
     [SerializeField] private GameObject _dropable;
     
+    public Vector2 originalPosition;
+    
     private RectTransform _rectTransform,_dropableRectTransform;
     private CanvasGroup _canvasGroup;
     
     
-    private Vector2 _originalPosition;
      
 
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
-        _originalPosition = _rectTransform.position;
+        originalPosition = _rectTransform.position;
         _dropableRectTransform = _dropable.GetComponent<RectTransform>();
-        _originalPosition = _rectTransform.anchoredPosition;  
+        originalPosition = _rectTransform.anchoredPosition;  
         _canvasGroup = GetComponent<CanvasGroup>();
         
     }
@@ -57,7 +58,7 @@ public class Dragable : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IEn
         }
         else
         {
-            _rectTransform.anchoredPosition = _originalPosition;
+            _rectTransform.anchoredPosition = originalPosition;
         }
     }
 
